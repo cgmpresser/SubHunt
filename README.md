@@ -11,12 +11,12 @@ R: randomly place ball (BUG: you may have to press it twice)
 ### Game Components
 - Make a target that is destroyed when the player touches it.
 - Make a torpedo (fire by either the player of enemy)
-= Make a target which is destroyed by a torpedo
-= Make a mechanism for firing the torpedo
+- Make a target which is destroyed by a torpedo
+- Make a mechanism for firing the torpedo
 
 ### Game Play
-= Create a start, end, and next level mechanism
-= Create levels (search, survive, destroy)
+- Create a start, end, and next level mechanism
+- Create levels (search, survive, destroy)
 
 ### Audio
 - Sonar: ping and response
