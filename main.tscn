@@ -1,0 +1,149 @@
+[gd_scene load_steps=18 format=3 uid="uid://b57rljnleb46n"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_04ont"]
+[ext_resource type="Texture2D" uid="uid://bl6r1gm507ca3" path="res://Field.png" id="1_j4gwj"]
+[ext_resource type="Script" path="res://player.gd" id="1_uv2lj"]
+[ext_resource type="AudioStream" uid="uid://mmgr45vu1nim" path="res://horn-c-3.ogg" id="4_6wx15"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytnlg"]
+albedo_texture = ExtResource("1_j4gwj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5urjs"]
+albedo_color = Color(0.201239, 0.275742, 0.164197, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_aixbt"]
+material = SubResource("StandardMaterial3D_5urjs")
+size = Vector2(200, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11j1m"]
+size = Vector3(200, 0.2, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g6spe"]
+size = Vector3(20, 20, 140)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dedd"]
+size = Vector3(20, 20, 140)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h1rqs"]
+size = Vector3(200, 20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wj842"]
+size = Vector3(200, 20, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cwaqo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ddsql"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ifbuq"]
+friction = 0.53
+bounce = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_ejb61"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jdhy5"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_04ont")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.836423, 0.452194, -0.309705, 0.205752, 0.26468, 0.942131, 0.507998, -0.851743, 0.128344, 0, 0, 0)
+light_energy = 2.616
+shadow_enabled = true
+
+[node name="Field" type="Node3D" parent="."]
+
+[node name="Ground" type="StaticBody3D" parent="Field"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Field/Ground"]
+material_override = SubResource("StandardMaterial3D_ytnlg")
+mesh = SubResource("PlaneMesh_aixbt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Field/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+shape = SubResource("BoxShape3D_11j1m")
+
+[node name="Wall_1" type="StaticBody3D" parent="Field"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 10, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Field/Wall_1"]
+mesh = SubResource("BoxMesh_g6spe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Field/Wall_1"]
+shape = SubResource("BoxShape3D_8dedd")
+
+[node name="Wall_2" type="StaticBody3D" parent="Field"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 10, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Field/Wall_2"]
+mesh = SubResource("BoxMesh_g6spe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Field/Wall_2"]
+shape = SubResource("BoxShape3D_8dedd")
+
+[node name="Wall_3" type="StaticBody3D" parent="Field"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -60)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Field/Wall_3"]
+mesh = SubResource("BoxMesh_h1rqs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Field/Wall_3"]
+shape = SubResource("BoxShape3D_wj842")
+
+[node name="Wall_4" type="StaticBody3D" parent="Field"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 60)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Field/Wall_4"]
+mesh = SubResource("BoxMesh_h1rqs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Field/Wall_4"]
+shape = SubResource("BoxShape3D_wj842")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.51, 0)
+script = ExtResource("1_uv2lj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("BoxMesh_cwaqo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("BoxShape3D_ddsql")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.952656, 0.30405, 0, -0.30405, 0.952656, 0, 1.55367, 3.03669)
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Player"]
+current = true
+
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.51189, 2.50904, 0)
+collision_layer = 2
+mass = 0.393
+physics_material_override = SubResource("PhysicsMaterial_ifbuq")
+contact_monitor = true
+max_contacts_reported = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
+mesh = SubResource("SphereMesh_ejb61")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("SphereShape3D_jdhy5")
+
+[node name="BeepSound" type="AudioStreamPlayer3D" parent="Ball"]
+stream = ExtResource("4_6wx15")
+attenuation_model = 1
+panning_strength = 3.0
+
+[node name="Timer" type="Timer" parent="Ball"]
+wait_time = 0.5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 15.5118, 0)
+current = true
+
+[connection signal="body_entered" from="Ball" to="." method="_on_ball_body_entered"]
+[connection signal="timeout" from="Ball/Timer" to="." method="_on_ball_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
