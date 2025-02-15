@@ -2,10 +2,10 @@
  A setup project for the sub hunt game.
 
 ## Controls
-Arrow keys: move and turn
-C: Toggle camera (on/off)
-S: Swap between moving sound and beeping sound for location
-R: randomly place ball (BUG: you may have to press it twice)
+- Arrow keys: move and turn
+- C: Toggle camera (on/off)
+- S: Swap between moving sound and beeping sound for location
+- R: randomly place ball (BUG: you may have to press it twice)
 
 ## TODO
 ### Game Components
