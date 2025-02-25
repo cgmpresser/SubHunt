@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=3 uid="uid://c04xi81px42wi"]
+
+[ext_resource type="Script" path="res://Scripts/field.gd" id="1_0jt8x"]
+[ext_resource type="Texture2D" uid="uid://bl6r1gm507ca3" path="res://Sprites/field.png" id="1_fv5rb"]
+[ext_resource type="AudioStream" uid="uid://df82opm452a5s" path="res://Audio/out_of_bounds.ogg" id="3_pkwgc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytnlg"]
+albedo_texture = ExtResource("1_fv5rb")
+uv1_scale = Vector3(1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5urjs"]
+albedo_color = Color(0.201239, 0.275742, 0.164197, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_aixbt"]
+material = SubResource("StandardMaterial3D_5urjs")
+size = Vector2(200, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_11j1m"]
+size = Vector3(220, 0.2, 220)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g6spe"]
+size = Vector3(20, 20, 280)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dedd"]
+size = Vector3(20, 20, 280)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h1rqs"]
+size = Vector3(200, 20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wj842"]
+size = Vector3(200, 20, 20)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_i0ytj"]
+radius = 90.0
+
+[node name="Field" type="Node3D"]
+script = ExtResource("1_0jt8x")
+
+[node name="Ground_1" type="StaticBody3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground_1"]
+material_override = SubResource("StandardMaterial3D_ytnlg")
+mesh = SubResource("PlaneMesh_aixbt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+shape = SubResource("BoxShape3D_11j1m")
+
+[node name="Wall_1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110, 10, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall_1"]
+mesh = SubResource("BoxMesh_g6spe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_1"]
+shape = SubResource("BoxShape3D_8dedd")
+
+[node name="Wall_2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110, 10, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall_2"]
+mesh = SubResource("BoxMesh_g6spe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_2"]
+shape = SubResource("BoxShape3D_8dedd")
+
+[node name="Wall_3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -110.384)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall_3"]
+mesh = SubResource("BoxMesh_h1rqs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_3"]
+shape = SubResource("BoxShape3D_wj842")
+
+[node name="Wall_4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 109.353)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall_4"]
+mesh = SubResource("BoxMesh_h1rqs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall_4"]
+shape = SubResource("BoxShape3D_wj842")
+
+[node name="InBoundsDetector" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InBoundsDetector"]
+shape = SubResource("CylinderShape3D_i0ytj")
+
+[node name="CenterSignal" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_pkwgc")
+parameters/looping = true
+
+[connection signal="body_entered" from="InBoundsDetector" to="." method="_on_in_bounds_detector_body_entered"]
+[connection signal="body_exited" from="InBoundsDetector" to="." method="_on_in_bounds_detector_body_exited"]

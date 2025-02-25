@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://b57rljnleb46n"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_ivtps"]
+[ext_resource type="PackedScene" uid="uid://c04xi81px42wi" path="res://Scenes/field.tscn" id="2_niqww"]
+[ext_resource type="PackedScene" uid="uid://f5eeypkcplmx" path="res://Scenes/player.tscn" id="3_vslj7"]
+[ext_resource type="PackedScene" uid="uid://cchho06uvplbj" path="res://Scenes/target.tscn" id="4_t2l6p"]
+[ext_resource type="AudioStream" uid="uid://cwdl7kriqx25n" path="res://Audio/deep_rumble.ogg" id="5_jung3"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ivtps")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.836423, 0.452194, -0.309705, 0.205752, 0.26468, 0.942131, 0.507998, -0.851743, 0.128344, 0, 0, 0)
+light_energy = 2.616
+shadow_enabled = true
+
+[node name="Field" parent="." instance=ExtResource("2_niqww")]
+
+[node name="Player" parent="." instance=ExtResource("3_vslj7")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 15.5118, 0)
+current = true
+
+[node name="OceanNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jung3")
+volume_db = -13.0
+autoplay = true
+parameters/looping = true
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="Target1" parent="Enemies" instance=ExtResource("4_t2l6p")]
+
+[node name="Target2" parent="Enemies" instance=ExtResource("4_t2l6p")]
+
+[node name="Target3" parent="Enemies" instance=ExtResource("4_t2l6p")]
+is_moving = true

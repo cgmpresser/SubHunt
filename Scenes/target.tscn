@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cchho06uvplbj"]
+
+[ext_resource type="Script" path="res://Scripts/target.gd" id="1_3hny6"]
+[ext_resource type="AudioStream" uid="uid://bn1a1etet0y18" path="res://Audio/sonarping-short.ogg" id="1_o8thd"]
+[ext_resource type="AudioStream" uid="uid://dhl0d4wb0w4ea" path="res://Audio/Chunky_Explosion.ogg" id="3_ast5x"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ejb61"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jdhy5"]
+
+[node name="Target" type="RigidBody3D" groups=["TargetGroup"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 2
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_3hny6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ejb61")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_jdhy5")
+
+[node name="BeepSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_o8thd")
+panning_strength = 3.0
+
+[node name="ExplodeSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_ast5x")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="ExplodeSound" to="." method="_on_explode_sound_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

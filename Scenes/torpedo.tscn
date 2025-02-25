@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://uc5v7k5kj8t3"]
+
+[ext_resource type="Script" path="res://Scripts/torpedo.gd" id="1_0hpbg"]
+[ext_resource type="AudioStream" uid="uid://bqesoonytfoyl" path="res://Audio/ship2.ogg" id="2_bbyum"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_foujp"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o3vcf"]
+size = Vector3(0.384521, 0.247803, 0.246216)
+
+[node name="Torpedo" type="StaticBody3D" groups=["TorpedoGroup"]]
+collision_mask = 3
+script = ExtResource("1_0hpbg")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_bbyum")
+panning_strength = 3.0
+emission_angle_enabled = true
+emission_angle_degrees = 90.0
+doppler_tracking = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_foujp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00720215, -0.00354004, -0.019104)
+shape = SubResource("BoxShape3D_o3vcf")

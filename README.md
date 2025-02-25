@@ -1,10 +1,23 @@
 # Sub Hunt
  A setup project for the sub hunt game.
 
+## What's New?
+- Incorporated Anaya's code organization (subfolders in res:// ) and torpedo.
+- Incorporated Dipto's short sonar sound.
+- Incorporated Yash's code for movement.
+- Ball is now Target.
+- Field is bigger and more square.
+- Made individual scenes out of Player, Target, and Field. Main has instances of them.
+- Added a script to Field which indicates when the player has gone more than 90m from the center.
+- Target responds to torpedo.
+- Added a bunch of sounds.
+- Handles multiple targets (sonar pings from each one)
+- Added this list to README.md
+
 ## Controls
 - Arrow keys: move and turn
-- C: Toggle camera (on/off)
-- S: Swap between moving sound and beeping sound for location
+- C or `: Toggle camera (on/off)
+- S: Sonar ping
 - R: randomly place ball (BUG: you may have to press it twice)
 
 ## TODO
