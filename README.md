@@ -18,6 +18,7 @@
 - Arrow keys: move and turn
 - C or `: Toggle camera (on/off)
 - S: Sonar ping
+- SPACE: fire torpedo
 - R: randomly place ball (BUG: you may have to press it twice)
 
 ## TODO
