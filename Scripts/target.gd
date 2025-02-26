@@ -1,10 +1,15 @@
 extends RigidBody3D
 class_name Target
 
+var torpedo_scene = preload("res://Scenes/torpedo.tscn")
+
 @export var is_moving = false
+@export var can_fire = false
 
 const SPEED = 3.0
 const TIMER_DIFF = .5
+const TORPEDO_START_OFFSET = 2;
+const TORPEDO_END_OFFSET = 20;
 
 static var num_targets = 0
 var target_id =  0
@@ -27,6 +32,8 @@ func _process(delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	if is_moving:
+		#using physics engine (it will actually overshoot its 
+		#target and come back
 		var force = (target_position - position).normalized() * SPEED
 		apply_central_force(force)
 	
@@ -35,11 +42,16 @@ func _physics_process(delta: float) -> void:
 
 	#move_and_slide()
 	#position = position + delta*velocity
-	pass
+	
 
 func ping(pos: Vector3):
 	target_position = pos
 	$Timer.start()
+	
+	#start firing timer
+	$FiringTimer.start()
+	
+	
 
 
 func _on_body_entered(body: Node) -> void:
@@ -56,3 +68,22 @@ func _on_timer_timeout() -> void:
 	$BeepSound.play()
 	print(target_id)
 	
+
+
+func _on_firing_timer_timeout() -> void:
+	if can_fire:
+		#fire a torpedo at the target position
+			#put down an audio direction marker at the player's location, in the direction of the ball
+		var torpedo = torpedo_scene.instantiate()
+		#var playerFacing = $Player.global_basis * Vector3(0, 0, -1)
+		#var playerPosition = $Player.get_global_position()
+	
+		var offset = ((target_position - position).normalized())
+		torpedo.position = position + offset*TORPEDO_START_OFFSET
+		torpedo.destination = target_position + offset*TORPEDO_END_OFFSET
+	
+		print(torpedo.position)
+		print(torpedo.destination)
+	
+		get_tree().root.add_child(torpedo)
+		torpedo.start()

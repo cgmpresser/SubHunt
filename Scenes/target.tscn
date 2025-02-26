@@ -31,6 +31,11 @@ stream = ExtResource("3_ast5x")
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="FiringTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="finished" from="ExplodeSound" to="." method="_on_explode_sound_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="FiringTimer" to="." method="_on_firing_timer_timeout"]
