@@ -33,3 +33,5 @@ parameters/looping = true
 [node name="Target1" parent="Enemies" instance=ExtResource("4_t2l6p")]
 is_moving = true
 can_fire = true
+
+[connection signal="damaged" from="Player" to="." method="_on_player_damaged"]

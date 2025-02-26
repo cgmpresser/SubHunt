@@ -1,8 +1,13 @@
 extends CharacterBody3D
 
+signal damaged(remaining_health)
+
 const SPEED = 10.0
 const ROTATION_SPEED = 2
 const JUMP_VELOCITY = 4.5
+
+@export var max_health = 5
+var health = max_health
 
 
 func _physics_process(delta: float) -> void:
@@ -22,3 +27,16 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+func health_status():
+	var dmg_pct = int(100 - 100*health/max_health)
+	TTS_Speaker.speak_text("Damage at " + str(dmg_pct) + " percent.")
+
+func _on_hit_zone_body_entered(body: Node3D) -> void:
+	if body.is_in_group("TorpedoGroup"):
+		TTS_Speaker.speak_text("You've been hit.")
+		health -= 1
+		if health == 0:
+			damaged.emit(health)
+		else:
+			health_status()

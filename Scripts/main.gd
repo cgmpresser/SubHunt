@@ -16,7 +16,7 @@ func _ready() -> void:
 	reset()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _input(event) -> void:
@@ -73,3 +73,7 @@ func _on_target_body_entered(body: Node) -> void:
 		DisplayServer.tts_speak("Hit target", voice_id)
 		
 	
+
+
+func _on_player_damaged(remaining_health: Variant) -> void:
+	pass # Replace with function body.

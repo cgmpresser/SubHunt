@@ -27,10 +27,10 @@ func reset_to(pos: Vector3) -> void:
 	target_position = pos
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_moving:
 		#using physics engine (it will actually overshoot its 
 		#target and come back
@@ -73,7 +73,6 @@ func _on_timer_timeout() -> void:
 func _on_firing_timer_timeout() -> void:
 	if can_fire:
 		#fire a torpedo at the target position
-			#put down an audio direction marker at the player's location, in the direction of the ball
 		var torpedo = torpedo_scene.instantiate()
 		#var playerFacing = $Player.global_basis * Vector3(0, 0, -1)
 		#var playerPosition = $Player.get_global_position()
