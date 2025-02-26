@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 
 func health_status():
 	var dmg_pct = int(100 - 100*health/max_health)
-	TTS_Speaker.speak_text("Damage at " + str(dmg_pct) + " percent.")
+	TTS_Speaker.speak_text("Damage at " + str(dmg_pct) + " percent.", false)
 
 func _on_hit_zone_body_entered(body: Node3D) -> void:
 	if body.is_in_group("TorpedoGroup"):
@@ -40,3 +40,4 @@ func _on_hit_zone_body_entered(body: Node3D) -> void:
 			damaged.emit(health)
 		else:
 			health_status()
+		body.queue_free()

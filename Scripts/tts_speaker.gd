@@ -16,7 +16,8 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func speak_text(text="Hello there."):
+func speak_text(text="Hello there.", interrupt=true):
 	#stop the old one
-	DisplayServer.tts_stop()
+	if interrupt:
+		DisplayServer.tts_stop()
 	DisplayServer.tts_speak(text, voice_str, voice_volume, pitch, rate)
