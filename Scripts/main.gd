@@ -126,10 +126,10 @@ func remove_all_enemies():
 func fire_torpedo() -> void:
 	#put down an audio direction marker at the player's location, in the direction of the ball
 	var torpedo = torpedo_scene.instantiate()
-	var playerFacing = $Player.global_basis * Vector3(0, 0, -2)
+	var playerFacing = $Player.global_basis * Vector3(0, 0, -1.5)
 	var playerPosition = $Player.get_global_position()
 	
-	torpedo.position = playerPosition +playerFacing
+	torpedo.position = playerPosition + playerFacing
 	torpedo.destination = playerPosition+playerFacing*RANGE
 	
 	add_child(torpedo)

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bl6r1gm507ca3"
 path.s3tc="res://.godot/imported/field.png-51a19d66e16a09c5b27375ce9219a850.s3tc.ctex"
+path.etc2="res://.godot/imported/field.png-51a19d66e16a09c5b27375ce9219a850.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Sprites/field.png"
-dest_files=["res://.godot/imported/field.png-51a19d66e16a09c5b27375ce9219a850.s3tc.ctex"]
+dest_files=["res://.godot/imported/field.png-51a19d66e16a09c5b27375ce9219a850.s3tc.ctex", "res://.godot/imported/field.png-51a19d66e16a09c5b27375ce9219a850.etc2.ctex"]
 
 [params]
 
