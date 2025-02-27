@@ -1,6 +1,8 @@
 extends RigidBody3D
 class_name Target
 
+signal destroyed
+
 var torpedo_scene = preload("res://Scenes/torpedo.tscn")
 
 @export var is_moving = false
@@ -57,6 +59,7 @@ func ping(pos: Vector3):
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("TorpedoGroup"):
 		$ExplodeSound.play()
+		destroyed.emit()
 		
 
 

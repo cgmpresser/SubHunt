@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://w6yal6q3l5lu"]
+
+[ext_resource type="Script" path="res://UI/start_screen.gd" id="1_4xb26"]
+[ext_resource type="Theme" uid="uid://b5gc3dkgm7nm7" path="res://UI/ui_theme.tres" id="1_eqs0g"]
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4xb26")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Instructions" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+focus_mode = 2
+theme = ExtResource("1_eqs0g")
+text = "Use up and down arrow keys to select an action, 
+then press space.
+
+"
+horizontal_alignment = 1
+
+[node name="PlayGameButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_eqs0g")
+text = "Play Game"
+
+[node name="SoundSettingsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_eqs0g")
+text = "Sound Settings"
+
+[node name="InstructionButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_eqs0g")
+text = "Instructions"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="focus_entered" from="VBoxContainer/Instructions" to="." method="_on_instructions_focus_entered"]
+[connection signal="focus_entered" from="VBoxContainer/PlayGameButton" to="." method="_on_play_game_button_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/PlayGameButton" to="." method="_on_play_game_button_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/SoundSettingsButton" to="." method="_on_sound_settings_button_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/SoundSettingsButton" to="." method="_on_sound_settings_button_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/InstructionButton" to="." method="_on_instruction_button_focus_entered"]
+[connection signal="pressed" from="VBoxContainer/InstructionButton" to="." method="_on_instruction_button_pressed"]

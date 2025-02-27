@@ -1,6 +1,6 @@
 extends Node3D
 
-const SPEED = 10
+const SPEED = 15
 
 @export var destination: Vector3 
 

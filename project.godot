@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SubHunt"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://Scenes/sub_hunt_top_level.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -72,3 +72,4 @@ get_velocity={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.241153, 0.427256, 0.536327, 1)

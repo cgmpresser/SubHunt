@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b57rljnleb46n"]
+[gd_scene load_steps=5 format=3 uid="uid://b57rljnleb46n"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_ivtps"]
 [ext_resource type="PackedScene" uid="uid://c04xi81px42wi" path="res://Scenes/field.tscn" id="2_niqww"]
 [ext_resource type="PackedScene" uid="uid://f5eeypkcplmx" path="res://Scenes/player.tscn" id="3_vslj7"]
-[ext_resource type="PackedScene" uid="uid://cchho06uvplbj" path="res://Scenes/target.tscn" id="4_t2l6p"]
 [ext_resource type="AudioStream" uid="uid://cwdl7kriqx25n" path="res://Audio/deep_rumble.ogg" id="5_jung3"]
 
 [node name="Main" type="Node3D"]
@@ -18,8 +17,8 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("3_vslj7")]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 15.5118, 0)
+[node name="SkyCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 87.7433, 0)
 current = true
 
 [node name="OceanNoise" type="AudioStreamPlayer" parent="."]
@@ -29,9 +28,5 @@ autoplay = true
 parameters/looping = true
 
 [node name="Enemies" type="Node3D" parent="."]
-
-[node name="Target1" parent="Enemies" instance=ExtResource("4_t2l6p")]
-is_moving = true
-can_fire = true
 
 [connection signal="damaged" from="Player" to="." method="_on_player_damaged"]

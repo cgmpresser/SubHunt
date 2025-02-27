@@ -1,0 +1,222 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfxmr2we8yccp"]
+
+[ext_resource type="Script" path="res://UI/sound_settings.gd" id="1_hstf5"]
+[ext_resource type="Theme" uid="uid://b5gc3dkgm7nm7" path="res://UI/ui_theme.tres" id="2_pirqc"]
+[ext_resource type="Script" path="res://UI/voice_options.gd" id="3_tsegk"]
+[ext_resource type="AudioStream" uid="uid://bqi0gwhwb5tem" path="res://UI/crow_caw.ogg" id="4_b0d7x"]
+
+[node name="SoundSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 3.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hstf5")
+
+[node name="Menu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -120.5
+offset_right = 250.0
+offset_bottom = 120.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Instructions" type="Label" parent="Menu"]
+layout_mode = 2
+focus_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Use up and down arrow keys to select the settings, 
+and left and right to choose a value.
+
+"
+
+[node name="GridContainer" type="GridContainer" parent="Menu"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="VoiceLanguageLabel" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Voice Language"
+
+[node name="VoiceLanguageOptions" type="OptionButton" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+script = ExtResource("3_tsegk")
+
+[node name="PlaceHolder0" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+
+[node name="Voice" type="Label" parent="Menu/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Voice"
+
+[node name="VoiceOptions" type="OptionButton" parent="Menu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../VoiceVolumeSlider")
+focus_next = NodePath("../VoiceVolumeSlider")
+theme = ExtResource("2_pirqc")
+script = ExtResource("3_tsegk")
+
+[node name="VoiceLabel" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "          "
+
+[node name="VoiceVolume" type="Label" parent="Menu/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Voice Volume"
+
+[node name="VoiceVolumeSlider" type="HSlider" parent="Menu/GridContainer"]
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../VoiceOptions")
+focus_neighbor_bottom = NodePath("../RateSlider")
+focus_next = NodePath("../RateSlider")
+focus_previous = NodePath("../VoiceOptions")
+theme = ExtResource("2_pirqc")
+max_value = 10.0
+
+[node name="VoiceVolumeLabel" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+horizontal_alignment = 2
+
+[node name="Rate" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Rate"
+
+[node name="RateSlider" type="HSlider" parent="Menu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../VoiceVolumeSlider")
+focus_previous = NodePath("../VoiceVolumeSlider")
+min_value = 0.1
+max_value = 4.0
+step = 0.1
+page = 0.25
+value = 1.1
+
+[node name="RateLabel" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+horizontal_alignment = 2
+
+[node name="Pitch" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Pitch
+"
+
+[node name="PitchSlider" type="HSlider" parent="Menu/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("2_pirqc")
+max_value = 2.0
+step = 0.25
+page = 0.25
+
+[node name="PitchLabel" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+horizontal_alignment = 2
+
+[node name="SoundFXVolume" type="Label" parent="Menu/GridContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Sound Volume
+"
+
+[node name="SoundSlider" type="HSlider" parent="Menu/GridContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("2_pirqc")
+max_value = 10.0
+value = 5.0
+
+[node name="SoundLabel" type="Label" parent="Menu/GridContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+horizontal_alignment = 2
+
+[node name="PlaceHolder1" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+
+[node name="SaveSettingsButton" type="Button" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Save Settings"
+
+[node name="PlaceHolder2" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+
+[node name="PlaceHolder3" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+
+[node name="RestoreDefaultButton" type="Button" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Restore Default Setttings"
+
+[node name="PlaceHolder4" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+
+[node name="PlaceHolder5" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+
+[node name="DoneButton" type="Button" parent="Menu/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_pirqc")
+text = "Done"
+
+[node name="PlaceHolder6" type="Label" parent="Menu/GridContainer"]
+layout_mode = 2
+
+[node name="SoundTest" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_b0d7x")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="focus_entered" from="Menu/Instructions" to="." method="_on_instructions_focus_entered"]
+[connection signal="focus_entered" from="Menu/GridContainer/VoiceLanguageOptions" to="." method="_on_voice_language_options_focus_entered"]
+[connection signal="item_selected" from="Menu/GridContainer/VoiceLanguageOptions" to="." method="_on_voice_language_options_item_selected"]
+[connection signal="focus_entered" from="Menu/GridContainer/VoiceOptions" to="." method="_on_voice_options_focus_entered"]
+[connection signal="item_selected" from="Menu/GridContainer/VoiceOptions" to="." method="_on_voice_options_item_selected"]
+[connection signal="focus_entered" from="Menu/GridContainer/VoiceVolumeSlider" to="." method="_on_volume_bar_focus_entered"]
+[connection signal="value_changed" from="Menu/GridContainer/VoiceVolumeSlider" to="." method="_on_volume_bar_value_changed"]
+[connection signal="focus_entered" from="Menu/GridContainer/RateSlider" to="." method="_on_rate_slider_focus_entered"]
+[connection signal="value_changed" from="Menu/GridContainer/RateSlider" to="." method="_on_rate_slider_value_changed"]
+[connection signal="focus_entered" from="Menu/GridContainer/PitchSlider" to="." method="_on_pitch_slider_focus_entered"]
+[connection signal="value_changed" from="Menu/GridContainer/PitchSlider" to="." method="_on_pitch_slider_value_changed"]
+[connection signal="focus_entered" from="Menu/GridContainer/SoundSlider" to="." method="_on_sound_slider_focus_entered"]
+[connection signal="value_changed" from="Menu/GridContainer/SoundSlider" to="." method="_on_sound_slider_value_changed"]
+[connection signal="focus_entered" from="Menu/GridContainer/SaveSettingsButton" to="." method="_on_save_settings_button_focus_entered"]
+[connection signal="pressed" from="Menu/GridContainer/SaveSettingsButton" to="." method="_on_save_settings_button_pressed"]
+[connection signal="focus_entered" from="Menu/GridContainer/RestoreDefaultButton" to="." method="_on_restore_default_button_focus_entered"]
+[connection signal="pressed" from="Menu/GridContainer/RestoreDefaultButton" to="." method="_on_restore_default_button_pressed"]
+[connection signal="focus_entered" from="Menu/GridContainer/DoneButton" to="." method="_on_done_button_focus_entered"]
+[connection signal="pressed" from="Menu/GridContainer/DoneButton" to="." method="_on_done_button_pressed"]

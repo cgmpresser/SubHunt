@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://doimr50jg1nla"]
+
+[ext_resource type="Script" path="res://Scripts/sub_hunt_top_level.gd" id="1_ftdh0"]
+[ext_resource type="PackedScene" uid="uid://w6yal6q3l5lu" path="res://UI/start_screen.tscn" id="1_fvhq7"]
+[ext_resource type="PackedScene" uid="uid://bfxmr2we8yccp" path="res://UI/sound_settings.tscn" id="1_j24s5"]
+[ext_resource type="PackedScene" uid="uid://bvx36xq7nk58o" path="res://UI/game_hud.tscn" id="3_jiorj"]
+[ext_resource type="PackedScene" uid="uid://b57rljnleb46n" path="res://Scenes/main.tscn" id="5_cn8a6"]
+[ext_resource type="PackedScene" uid="uid://d2myxwovwyeie" path="res://UI/instructions.tscn" id="6_skuub"]
+
+[node name="SubHuntTopLevel" type="Node3D"]
+script = ExtResource("1_ftdh0")
+
+[node name="Main" parent="." instance=ExtResource("5_cn8a6")]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SoundSettings" parent="UI" instance=ExtResource("1_j24s5")]
+visible = false
+layout_mode = 1
+
+[node name="StartScreen" parent="UI" instance=ExtResource("1_fvhq7")]
+visible = false
+layout_mode = 1
+
+[node name="GameHUD" parent="UI" instance=ExtResource("3_jiorj")]
+visible = false
+layout_mode = 1
+
+[node name="Instructions" parent="UI" instance=ExtResource("6_skuub")]
+layout_mode = 1
+
+[connection signal="update" from="Main" to="." method="_on_main_update"]
+[connection signal="update" from="Main" to="UI/GameHUD" method="_on_main_update"]
+[connection signal="done" from="UI/SoundSettings" to="." method="_on_sound_settings_done"]
+[connection signal="instructions" from="UI/StartScreen" to="." method="_on_start_screen_instructions"]
+[connection signal="play_game" from="UI/StartScreen" to="." method="_on_start_screen_play_game"]
+[connection signal="sound_settings" from="UI/StartScreen" to="." method="_on_start_screen_sound_settings"]
+[connection signal="done" from="UI/GameHUD" to="." method="_on_game_hud_done"]
+[connection signal="instructions_done" from="UI/Instructions" to="." method="_on_instructions_instructions_done"]
