@@ -2,6 +2,11 @@
  A setup project for the sub hunt game.
 
 ## What's New?
+### 2/26/2025
+- Added sound settings and instructions UI
+- Added game over and next level functionality
+- Added last known location (e key)
+
 ### 2/25/2025
 - Targets make a noise audible when you are nearby.
 - Target can fire torpedo

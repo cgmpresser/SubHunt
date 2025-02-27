@@ -74,24 +74,39 @@ func set_level(l: int):
 	var type = int((level - 1) % 4)
 	
 	print("creating " + str(num_targets) + " of type " + str(type))
+	var mv = false
+	var fr = false
+	match type:
+			0:
+				mv = false
+				fr = false
+			1:
+				mv = true
+				fr = false
+			2:
+				mv= false
+				fr = true
+			3:
+				mv = true
+				fr = true
+	
+	var msg
+	if mv:			
+		msg = "Enemies can move "
+	else:
+		msg = "Enemies are stationery "
+	if fr:			
+		msg += "and they can fire torpedos."
+		
+	TTS_Speaker.speak_text(msg)
 	#create targets
 	for i in range(num_targets):
 		#create an instance
 		var enemy = target_scene.instantiate()
 		
-		match type:
-			0:
-				enemy.is_moving = false
-				enemy.can_fire = false
-			1:
-				enemy.is_moving = true
-				enemy.can_fire = false
-			2:
-				enemy.is_moving = false
-				enemy.can_fire = true
-			3:
-				enemy.is_moving = true
-				enemy.can_fire = true
+		enemy.is_moving = mv
+		enemy.can_fire = fr
+		
 		
 		enemy.connect("destroyed", _on_target_destroyed)
 		location_known = false
