@@ -12,6 +12,9 @@ var rng = RandomNumberGenerator.new()
 
 var paused = false
 
+var location_known = false
+var last_location = Vector3(0, 0, 0)
+
 var total_targets = 1
 var targets_destroyed = 0
 var total_damage = 0
@@ -48,6 +51,9 @@ func _input(event) -> void:
 
 	elif event.is_action_pressed('reset_ball'):
 		reset()
+		
+	elif event.is_action_pressed('enemy_location'):
+		enemy_location()
 	
 
 func reset() -> void:
@@ -88,10 +94,13 @@ func set_level(l: int):
 				enemy.can_fire = true
 		
 		enemy.connect("destroyed", _on_target_destroyed)
+		location_known = false
+		last_location = Vector3()
 		$Enemies.add_child(enemy)	
 		
 	#randomize locations
 	reset()
+	set_pause(false)
 
 func remove_all_enemies():
 	#$Enemies.get_children().clear()
@@ -115,6 +124,9 @@ func send_sonar_ping():
 	for target in $Enemies.get_children():
 		#everyone ping
 		target.ping($Player.position)
+		last_location = target.get_position()
+		#print(last_location)
+		location_known = true
 	#play response (each target)?
 	
 	#collect info for nearest target
@@ -152,5 +164,25 @@ func set_pause(new_value: bool) -> void:
 
 func _on_target_destroyed() -> void:
 	targets_destroyed += 1
+	
+	set_pause(targets_destroyed == total_targets)
 	update.emit($Player.get_damage_pct(), targets_destroyed, 
 		targets_destroyed == total_targets, targets_destroyed == total_targets)
+
+func enemy_location():
+	if location_known:
+		#firgure out an angle and distance from current direction
+		
+		var playerFacing = $Player.global_basis * Vector3(0, 0, -1)
+		var dir_to_enemy = last_location - $Player.get_position()
+		var enemy_angle = rad_to_deg(playerFacing.signed_angle_to(dir_to_enemy, Vector3.UP))
+		print(playerFacing)
+		print(last_location)
+		print(enemy_angle)
+		var dir = "port"
+		if enemy_angle < 0:
+			dir = "starboard"
+			enemy_angle *= -1
+		TTS_Speaker.speak_text("The enemy is %.2f degrees to %s"%[enemy_angle,dir])
+	else:
+		TTS_Speaker.speak_text("Location not known. Use sonar. s key.")

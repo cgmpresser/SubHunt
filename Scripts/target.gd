@@ -59,11 +59,11 @@ func ping(pos: Vector3):
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("TorpedoGroup"):
 		$ExplodeSound.play()
-		destroyed.emit()
 		
 
 
 func _on_explode_sound_finished() -> void:
+	destroyed.emit()
 	queue_free()
 
 

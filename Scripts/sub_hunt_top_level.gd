@@ -13,8 +13,8 @@ func _ready() -> void:
 	
 func setup() -> void:
 	main_scene = $Main
+	main_scene.set_pause(true)
 	remove_child(main_scene)
-	#main_scene.set_pause(true)
 	switch_screen(0)
 	
 func switch_screen(screen) -> void:
@@ -22,13 +22,14 @@ func switch_screen(screen) -> void:
 	$UI/SoundSettings.set_visible(screen == SCREEN_SOUND)
 	$UI/GameHUD.set_visible(screen == SCREEN_GAME)
 	$UI/Instructions.set_visible(screen == SCREEN_INSTRUCTIONS)
-	main_scene.set_pause(screen != SCREEN_GAME)
 	
 	if screen == SCREEN_GAME:
 		#ass main back to tree
 		add_child(main_scene)
+		main_scene.set_pause(false)
 	elif get_children().has(main_scene):
 		#remove main from tree
+		main_scene.set_pause(true)
 		remove_child(main_scene)
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -52,6 +53,7 @@ func _on_sound_settings_done() -> void:
 func _on_game_hud_done(next: bool) -> void:
 	if next:
 		main_scene.next_level()
+		main_scene.set_pause(false)
 	else:
 		if get_children().has(main_scene):
 			#remove main from tree

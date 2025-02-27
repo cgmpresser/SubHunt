@@ -31,8 +31,8 @@ layout_mode = 2
 theme = ExtResource("1_cwxp7")
 text = "Use the arrow keys to move.
 Press space to fire a torpedo.
-Press s to send a sonar ping.
-Press e to hear the last know direction of an enemy.
+Press s to send a sonar ping, but it gives away your position.
+Press e to hear the last know location of an enemy.
 Press space to return to the menu.
 "
 horizontal_alignment = 1
