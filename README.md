@@ -2,6 +2,14 @@
  A setup project for the sub hunt game.
 
 ## What's New?
+### 2/25/2025
+- Targets make a noise audible when you are nearby.
+- Target can fire torpedo
+- Target moves using physics forces 
+- Player takes damamge from torpedo hit
+- Reduced to one target.
+
+### 2/25/2025
 - Incorporated Anaya's code organization (subfolders in res:// ) and torpedo.
 - Incorporated Dipto's short sonar sound.
 - Incorporated Yash's code for movement.
