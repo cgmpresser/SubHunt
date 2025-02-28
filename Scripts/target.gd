@@ -9,6 +9,7 @@ var torpedo_scene = preload("res://Scenes/torpedo.tscn")
 @export var can_fire = false
 
 const SPEED = 3.0
+const FORCE_MULT = 6
 const TIMER_DIFF = .5
 const TORPEDO_START_OFFSET = 2;
 const TORPEDO_END_OFFSET = 20;
@@ -36,7 +37,9 @@ func _physics_process(_delta: float) -> void:
 	if is_moving:
 		#using physics engine (it will actually overshoot its 
 		#target and come back
-		var force = (target_position - position).normalized() * SPEED
+		var dir_vector = (target_position - position).normalized()
+		dir_vector.y = 0
+		var force = dir_vector * SPEED * FORCE_MULT
 		apply_central_force(force)
 	
 	#if not is_on_floor():
@@ -48,6 +51,12 @@ func _physics_process(_delta: float) -> void:
 
 func ping(pos: Vector3):
 	target_position = pos
+	
+	#var dir_vector = (target_position - position).normalized()
+	#dir_vector.y = 0
+	#var force = dir_vector * SPEED
+	#print(force)
+	
 	$Timer.start()
 	
 	#start firing timer
@@ -74,6 +83,7 @@ func _on_timer_timeout() -> void:
 
 
 func _on_firing_timer_timeout() -> void:
+	$BeepSound.play()
 	if can_fire:
 		#fire a torpedo at the target position
 		var torpedo = torpedo_scene.instantiate()

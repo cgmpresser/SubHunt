@@ -1,28 +1,30 @@
 [gd_scene load_steps=7 format=3 uid="uid://cchho06uvplbj"]
 
 [ext_resource type="Script" path="res://Scripts/target.gd" id="1_3hny6"]
-[ext_resource type="AudioStream" uid="uid://bn1a1etet0y18" path="res://Audio/sonarping-short.ogg" id="1_o8thd"]
+[ext_resource type="AudioStream" uid="uid://dlqx5t12jq453" path="res://Audio/sonar_ping.mp3" id="2_qamg8"]
 [ext_resource type="AudioStream" uid="uid://dhl0d4wb0w4ea" path="res://Audio/Chunky_Explosion.ogg" id="3_ast5x"]
 [ext_resource type="AudioStream" uid="uid://djsnx0vrehaqs" path="res://Audio/underwater_engine.ogg" id="4_iqis1"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_ejb61"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_s24vt"]
+top_radius = 2.0
+bottom_radius = 2.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_jdhy5"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b3txx"]
+radius = 2.0
 
 [node name="Target" type="RigidBody3D" groups=["TargetGroup"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_3hny6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_ejb61")
+mesh = SubResource("CylinderMesh_s24vt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_jdhy5")
+shape = SubResource("CylinderShape3D_b3txx")
 
 [node name="BeepSound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("1_o8thd")
+stream = ExtResource("2_qamg8")
 panning_strength = 3.0
 
 [node name="ExplodeSound" type="AudioStreamPlayer3D" parent="."]

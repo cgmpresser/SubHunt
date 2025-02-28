@@ -60,7 +60,7 @@ func reset() -> void:
 	targets_destroyed = 0
 	for target in $Enemies.get_children():
 			#target.set_sleeping(true)
-			target.reset_to(Vector3(rng.randi_range(-60, 60), 0.51, rng.randi_range(-60, 60)))
+			target.reset_to(Vector3(rng.randi_range(-60, 60), 3, rng.randi_range(-60, 60)))
 	#$Target.set_sleeping(true)
 	#$Target.set_position(Vector3(rng.randi_range(-90, 90), 3, rng.randi_range(-40, 40)))
 
