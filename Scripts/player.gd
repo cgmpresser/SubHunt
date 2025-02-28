@@ -35,7 +35,8 @@ func health_status():
 
 func _on_hit_zone_body_entered(body: Node3D) -> void:
 	if body.is_in_group("TorpedoGroup"):
-		TTS_Speaker.speak_text("You've been hit.")
+		#TTS_Speaker.speak_text("You've been hit.")
+		$Explosion.play()
 		health -= 1
 		health_status()
 		body.queue_free()

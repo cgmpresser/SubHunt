@@ -91,11 +91,12 @@ func set_level(l: int):
 				mv = true
 				fr = true
 	
-	var msg = "There are %d enemies which "%num_targets
+	var msg = "%d enemies which "%num_targets
+		
 	if mv:			
-		msg = "can move "
+		msg += "can move "
 	else:
-		msg = "are stationery "
+		msg += "are stationery "
 	if fr:			
 		msg += "and they can fire torpedos."
 		
