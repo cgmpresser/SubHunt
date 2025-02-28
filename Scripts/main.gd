@@ -17,6 +17,7 @@ var last_location = Vector3(0, 0, 0)
 
 var total_targets = 1
 var targets_destroyed = 0
+var all_targets_destroyed = 0
 var total_damage = 0
 var level = 1
 
@@ -90,11 +91,11 @@ func set_level(l: int):
 				mv = true
 				fr = true
 	
-	var msg
+	var msg = "There are %d enemies which "%num_targets
 	if mv:			
-		msg = "Enemies can move "
+		msg = "can move "
 	else:
-		msg = "Enemies are stationery "
+		msg = "are stationery "
 	if fr:			
 		msg += "and they can fire torpedos."
 		
@@ -114,6 +115,7 @@ func set_level(l: int):
 		$Enemies.add_child(enemy)	
 		
 	#randomize locations
+	total_targets = num_targets
 	reset()
 	set_pause(false)
 
@@ -165,9 +167,9 @@ func _on_player_damaged(damage: int) -> void:
 	print("player damage in main")
 	if damage == 100:
 		set_pause(true)
-		update.emit($Player.get_damage_pct(), targets_destroyed, true, false)
+		update.emit($Player.get_damage_pct(), all_targets_destroyed, true, false)
 	else:
-		update.emit($Player.get_damage_pct(), targets_destroyed, false, false)
+		update.emit($Player.get_damage_pct(), all_targets_destroyed, false, false)
 
 func set_pause(new_value: bool) -> void:
 	paused = new_value
@@ -179,9 +181,10 @@ func set_pause(new_value: bool) -> void:
 
 func _on_target_destroyed() -> void:
 	targets_destroyed += 1
+	all_targets_destroyed += 1
 	
 	set_pause(targets_destroyed == total_targets)
-	update.emit($Player.get_damage_pct(), targets_destroyed, 
+	update.emit($Player.get_damage_pct(), all_targets_destroyed, 
 		targets_destroyed == total_targets, targets_destroyed == total_targets)
 
 func enemy_location():
@@ -198,6 +201,6 @@ func enemy_location():
 		if enemy_angle < 0:
 			dir = "starboard"
 			enemy_angle *= -1
-		TTS_Speaker.speak_text("The enemy is %.2f degrees to %s"%[enemy_angle,dir])
+		TTS_Speaker.speak_text("The enemy was %.2f degrees to %s"%[enemy_angle,dir])
 	else:
 		TTS_Speaker.speak_text("Location not known. Use sonar. s key.")
