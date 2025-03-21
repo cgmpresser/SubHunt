@@ -41,6 +41,7 @@ one_shot = true
 stream = ExtResource("4_iqis1")
 volume_db = -10.48
 autoplay = true
+max_distance = 20.0
 parameters/looping = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

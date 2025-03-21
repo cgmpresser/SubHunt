@@ -17,6 +17,7 @@ const TORPEDO_END_OFFSET = 20;
 static var num_targets = 0
 var target_id =  0
 var target_position = Vector3(0,0,0)
+var was_hit = false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -66,7 +67,8 @@ func ping(pos: Vector3):
 
 
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("TorpedoGroup"):
+	if !was_hit and body.is_in_group("TorpedoGroup"):
+		was_hit = true;
 		$ExplodeSound.play()
 		
 
