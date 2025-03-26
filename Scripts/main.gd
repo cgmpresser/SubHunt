@@ -9,6 +9,7 @@ var isVisible = false
 var ball_noise = true
 #var voice_id = ""
 var rng = RandomNumberGenerator.new()
+var level_rng = RandomNumberGenerator.new()
 
 var paused = false
 
@@ -23,6 +24,7 @@ var level = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	level_rng.set_seed(13)
 	#var voices = DisplayServer.tts_get_voices_for_language("en")
 	#if voices:
 	#	voice_id = voices[0]
@@ -69,6 +71,67 @@ func next_level():
 	set_level(level + 1)
 
 func set_level(l: int):
+	Target.num_targets = 0
+	#set_level_orig(l)
+	remove_all_enemies()
+	level = l
+	
+	var num_targets = int((level - 1) / 4) + 1
+	var type = int((level - 1) % 4)
+	#first four levels just have one target (each of different type)
+	if level <= 4:
+		create_target(type)
+		speak_type(type)
+	else:
+		for i in range(num_targets):
+			create_target(level_rng.randi_range(0,3))	
+		TTS_Speaker.speak_text(str(num_targets) + " enemies.")	
+	
+	
+	location_known = false
+	last_location = Vector3()
+	#randomize locations
+	total_targets = num_targets
+	reset()
+	set_pause(false)
+	
+func create_target(type: int):
+	var enemy = target_scene.instantiate()
+	enemy.is_moving = type % 2 == 1
+	enemy.can_fire = int(type / 2) == 1
+		
+	enemy.connect("destroyed", _on_target_destroyed)
+	$Enemies.add_child(enemy)	
+
+func speak_type(type: int):
+	var mv = false
+	var fr = false
+	match type:
+			0:
+				mv = false
+				fr = false
+			1:
+				mv = true
+				fr = false
+			2:
+				mv= false
+				fr = true
+			3:
+				mv = true
+				fr = true
+	
+	var msg = "This enemy "
+		
+	if mv:			
+		msg += "can move "
+	else:
+		msg += "is stationery "
+	if fr:			
+		msg += "and it can fire torpedos."
+
+	TTS_Speaker.speak_text(msg)
+
+func set_level_orig(l: int):
 	remove_all_enemies()
 	level = l
 	var num_targets = int((level - 1) / 4) + 1

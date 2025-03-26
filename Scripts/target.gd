@@ -17,6 +17,7 @@ const TORPEDO_END_OFFSET = 20;
 static var num_targets = 0
 var target_id =  0
 var target_position = Vector3(0,0,0)
+var prep_target_position = Vector3(0,0,0)
 var was_hit = false;
 
 # Called when the node enters the scene tree for the first time.
@@ -51,7 +52,7 @@ func _physics_process(_delta: float) -> void:
 	
 
 func ping(pos: Vector3):
-	target_position = pos
+	prep_target_position = pos
 	
 	#var dir_vector = (target_position - position).normalized()
 	#dir_vector.y = 0
@@ -86,6 +87,7 @@ func _on_timer_timeout() -> void:
 
 func _on_firing_timer_timeout() -> void:
 	$BeepSound.play()
+	target_position = prep_target_position
 	if can_fire:
 		#fire a torpedo at the target position
 		var torpedo = torpedo_scene.instantiate()
